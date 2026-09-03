@@ -1,40 +1,20 @@
 # MyCashFlow 💧
 
-A minimalist, zero-dependency personal finance tracker built entirely on Google Sheets and Google Apps Script.
+<img src="./screenshot.png" width="300">
 
-Adhering to the **suckless** philosophy, this project requires no databases to configure, no npm packages to install, and no complex frameworks. It uses vanilla HTML/CSS/JS for a lightning-fast, mobile-first Web App experience, using Google Sheets as the backend database.
+Một công cụ theo dõi tài chính cá nhân tối giản, không phụ thuộc thư viện bên ngoài (zero-dependency), được xây dựng hoàn toàn trên nền tảng Google Sheets và Google Apps Script.
 
-## ✨ Features
-- **Zero Infrastructure:** Your data lives privately in your Google Drive.
-- **Mobile-First UI:** A sleek, app-like interface tailored for mobile web browsers.
-- **Smart Transactions:** Track income/expenses with an integrated auto-savings deduction feature.
-- **Debt Management:** Keep track of who owes you and who you owe (Lend/Borrow/Collect/Repay).
-- **Suckless Codebase:** Extremely lightweight. No React, no Vue, no Tailwind. Just pure CSS and Vanilla JS.
+## 🚀 Hướng dẫn triển khai (Deployment)
 
----
+Làm theo các bước dưới đây để tự tạo một phiên bản MyCashFlow cho riêng bạn.
 
-## 📁 Repository Structure
+### Bước 1: Chuẩn bị Cơ sở dữ liệu (Google Sheets)
+1. Tạo một bảng tính [Google Sheet](https://sheets.new/) mới.
+2. Tạo chính xác **3 trang tính (sheets)** (các tab ở dưới cùng) và đặt tên lần lượt là: `Transactions`, `Debts`, và `Dashboard`.
+3. Điền các tiêu đề (headers) và công thức (formulas) chính xác như bảng dưới đây:
 
-```text
-.
-├── Code.gs      # Backend logic (Google Apps Script)
-├── Index.html   # Frontend Web App (HTML + CSS + Vanilla JS)
-└── README.md    # Documentation & Deployment guide
-```
-
----
-
-## 🚀 Deployment Guide
-
-Follow these steps to deploy your own instance of MyCashFlow.
-
-### Step 1: Prepare the Database (Google Sheets)
-1. Create a new [Google Sheet](https://sheets.new/).
-2. Create exactly **3 sheets** (tabs at the bottom) and name them: `Transactions`, `Debts`, and `Dashboard`.
-3. Fill in the headers and formulas exactly as follows:
-
-#### Sheet 1: `Transactions`
-| Cell | Content / Formula |
+#### Trang tính 1: `Transactions`
+| Ô (Cell) | Nội dung / Công thức |
 | :--- | :--- |
 | **A1** | `Date` |
 | **B1** | `Type` |
@@ -44,8 +24,8 @@ Follow these steps to deploy your own instance of MyCashFlow.
 | **F1** | `Note` |
 | **G1** | `=IFERROR({"Month"; ARRAYFORMULA(IF(A2:A=""; ""; TEXT(A2:A; "yyyy-mm")))})` |
 
-#### Sheet 2: `Debts`
-| Cell | Content / Formula |
+#### Trang tính 2: `Debts`
+| Ô (Cell) | Nội dung / Công thức |
 | :--- | :--- |
 | **A1** | `Date` |
 | **B1** | `Action` |
@@ -54,8 +34,8 @@ Follow these steps to deploy your own instance of MyCashFlow.
 | **E1** | `Note` |
 | **F1** | `=IFERROR({"Month"; ARRAYFORMULA(IF(A2:A=""; ""; TEXT(A2:A; "yyyy-mm")))})` |
 
-#### Sheet 3: `Dashboard`
-| Cell | Content / Formula |
+#### Trang tính 3: `Dashboard`
+| Ô (Cell) | Nội dung / Công thức |
 | :--- | :--- |
 | **A1** | `Current Month` |
 | **B1** | `=TEXT(TODAY(); "MM/yyyy")` |
@@ -70,35 +50,24 @@ Follow these steps to deploy your own instance of MyCashFlow.
 | **A6** | `Total Savings` |
 | **B6** | `=SUM(Transactions!E:E)` |
 
-> ⚠️ **Note on Locale:** The formulas above use semicolons (`;`) which is standard for locales like Vietnam/Europe. If your Google account is set to US locale, you may need to replace semicolons (`;`) with commas (`,`) in the formulas.
+> ⚠️ **Lưu ý về Định dạng vùng (Locale):** Các công thức trên sử dụng dấu chấm phẩy (`;`), đây là chuẩn chung cho tài khoản ở khu vực Việt Nam/Châu Âu. Nếu tài khoản Google của bạn đang dùng ngôn ngữ/khu vực là chuẩn Mỹ (US), bạn có thể sẽ cần đổi dấu chấm phẩy (`;`) thành dấu phẩy (`,`) để công thức hoạt động đúng.
 
 ---
 
-### Step 2: Setup Apps Script
-1. On your Google Sheet, click on **Extensions** > **Apps Script** in the top menu.
-2. Delete any default code in the script editor.
-3. Create a file named `Code.gs` and paste the contents of the `Code.gs` file from this repository.
-4. Click the `+` icon next to "Files", select **HTML**, name it `Index.html`, and paste the contents of the `Index.html` file from this repository.
-5. Click the **Save** icon (💾).
+### Bước 2: Cài đặt Apps Script
+1. Đứng tại Google Sheet của bạn, trên menu thanh công cụ, nhấn vào **Tiện ích mở rộng (Extensions)** > **Apps Script**.
+2. Xóa sạch mọi đoạn code mặc định (nếu có) trong cửa sổ soạn thảo.
+3. Tạo một file tên là `Code.gs` và dán toàn bộ nội dung từ file `Code.gs` trong kho lưu trữ (repo) này vào.
+4. Nhấn vào biểu tượng `+` bên cạnh chữ "Tệp (Files)", chọn **HTML**, đặt tên là `Index.html`, và dán toàn bộ nội dung từ file `Index.html` của repo này vào.
+5. Nhấn biểu tượng **Lưu** (💾) ở thanh công cụ phía trên.
 
-### Step 3: Deploy the Web App
-1. In the top right corner of the Apps Script editor, click **Deploy** > **New deployment**.
-2. Click the gear icon ⚙️ next to "Select type" and choose **Web app**.
-3. Fill in the details:
-   - **Description:** `MyCashFlow v1.0` (or anything you like).
-   - **Execute as:** `Me` (This ensures the app writes to *your* Google Sheet).
-   - **Who has access:** `Only myself` (For personal security) OR `Anyone` (If you want to access it without logging in, assuming you keep the URL secret).
-4. Click **Deploy**.
-5. *Google will ask for permissions. Click "Review permissions", select your account, click "Advanced", and click "Go to project (unsafe)" to allow the script to read/write your spreadsheet.*
-6. **Done!** You will get a Web App URL. Bookmark this URL on your phone's browser and add it to your home screen.
-
----
-
-## 💡 Philosophy
-Software today is bloated. **MyCashFlow** stands against that.
-- No loading spinners for huge JS bundles.
-- No third-party tracking.
-- No monthly subscriptions.
-- Just you, your code, and your money.
-
-Keep it simple, stupid.
+### Bước 3: Phát hành Web App
+1. Ở góc trên cùng bên phải của giao diện Apps Script, nhấn nút **Triển khai (Deploy)** > **Bản triển khai mới (New deployment)**.
+2. Bấm vào biểu tượng bánh răng ⚙️ bên cạnh "Chọn loại (Select type)" và chọn **Ứng dụng web (Web app)**.
+3. Điền các thông tin:
+   - **Mô tả (Description):** `MyCashFlow v1.0` (hoặc bất kỳ tên gì bạn thích).
+   - **Thực thi dưới dạng (Execute as):** `Tôi (Me)` *(Thiết lập này rất quan trọng để webapp có thể ghi dữ liệu vào Sheet của bạn).*
+   - **Người có quyền truy cập (Who has access):** Chọn `Chỉ mình tôi (Only myself)` *(Khuyến cáo để bảo mật tiền bạc của bạn)* HOẶC chọn `Bất kỳ ai (Anyone)` *(Nếu bạn muốn truy cập nhanh mà không cần đăng nhập tài khoản Google trên điện thoại, miễn là bạn không tiết lộ link cho ai khác).*
+4. Nhấn nút **Triển khai (Deploy)**.
+5. *Hệ thống của Google sẽ yêu cầu cấp quyền (Authorize access). Hãy nhấn "Xem xét quyền", chọn tài khoản Google của bạn, nhấn vào "Nâng cao" (Advanced), và chọn "Đi tới dự án (không an toàn)" để cho phép script có quyền đọc/ghi vào file Google Sheet của bạn.*
+6. **Hoàn tất!** Hệ thống sẽ cung cấp cho bạn một đường dẫn (URL) Ứng dụng web. Hãy lưu link này (bookmark) trên trình duyệt điện thoại và chọn tính năng "Thêm vào màn hình chính" (Add to Home Screen) để sử dụng nó như một app thực thụ.
