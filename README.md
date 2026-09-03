@@ -22,7 +22,7 @@ Làm theo các bước dưới đây để tự tạo một phiên bản MyCashF
 | **D1** | `Category` |
 | **E1** | `Savings` |
 | **F1** | `Note` |
-| **G1** | `=IFERROR({"Month"; ARRAYFORMULA(IF(A2:A=""; ""; TEXT(A2:A; "yyyy-mm")))})` |
+| **G1** | `=ARRAYFORMULA(IF(ROW(A:A)=1; "Month"; IF(A:A=""; ""; TEXT(A:A; "yyyy-mm"))))` |
 
 #### Trang tính 2: `Debts`
 | Ô (Cell) | Nội dung / Công thức |
@@ -32,7 +32,7 @@ Làm theo các bước dưới đây để tự tạo một phiên bản MyCashF
 | **C1** | `Amount` |
 | **D1** | `Person` |
 | **E1** | `Note` |
-| **F1** | `=IFERROR({"Month"; ARRAYFORMULA(IF(A2:A=""; ""; TEXT(A2:A; "yyyy-mm")))})` |
+| **F1** | `=ARRAYFORMULA(IF(ROW(A:A)=1; "Month"; IF(A:A=""; ""; TEXT(A:A; "yyyy-mm"))))` |
 
 #### Trang tính 3: `Dashboard`
 | Ô (Cell) | Nội dung / Công thức |

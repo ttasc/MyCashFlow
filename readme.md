@@ -22,7 +22,7 @@ Follow these steps to deploy your own instance of MyCashFlow.
 | **D1** | `Category` |
 | **E1** | `Savings` |
 | **F1** | `Note` |
-| **G1** | `=IFERROR({"Month"; ARRAYFORMULA(IF(A2:A=""; ""; TEXT(A2:A; "yyyy-mm")))})` |
+| **G1** | `=ARRAYFORMULA(IF(ROW(A:A)=1; "Month"; IF(A:A=""; ""; TEXT(A:A; "yyyy-mm"))))` |
 
 #### Sheet 2: `Debts`
 | Cell | Content / Formula |
@@ -32,7 +32,7 @@ Follow these steps to deploy your own instance of MyCashFlow.
 | **C1** | `Amount` |
 | **D1** | `Person` |
 | **E1** | `Note` |
-| **F1** | `=IFERROR({"Month"; ARRAYFORMULA(IF(A2:A=""; ""; TEXT(A2:A; "yyyy-mm")))})` |
+| **F1** | `=ARRAYFORMULA(IF(ROW(A:A)=1; "Month"; IF(A:A=""; ""; TEXT(A:A; "yyyy-mm"))))` |
 
 #### Sheet 3: `Dashboard`
 | Cell | Content / Formula |
