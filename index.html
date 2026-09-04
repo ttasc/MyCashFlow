@@ -143,6 +143,9 @@
       </div>
 
       <div id="sync-status" class="sync-indicator">Đã đồng bộ</div>
+      <div style="text-align: center; margin-top: 8px;">
+        <a id="sheet-link" href="#" target="_blank" style="display: none; font-size: 0.85rem; color: var(--primary); text-decoration: none; font-weight: 600; padding: 5px;">Mở Google Sheet ↗</a>
+      </div>
     </div>
   </main>
 
@@ -194,6 +197,7 @@
           withSuccessHandler: function(cb) { this.cb = cb; return this; },
           getDashboardData: function() {
             setTimeout(() => this.cb({
+              sheetUrl: "https://docs.google.com/spreadsheets/",
               metrics: { currentMonth: "09/2026", monthlyIncome: 9000000, monthlyExpense: 400000, monthlyBalance: 903150000, totalBalance: 1500000000, totalSavings: 20000000 },
               debts: [
                 ["", "Lend", 10000000, "Nguyễn Văn Linh"],
@@ -206,6 +210,7 @@
           getTransactions: function(month) {
             setTimeout(() => this.cb([
               ["05/09/2026", "Expense", 50000, "Ăn uống", 0, "Ăn sáng bún bò"],
+              ["04/09/2026", "Expense", 200000, "Tiền nhà", 0, "Ứng trước cho Châu 1 tháng, giờ chuyển 1 tháng nữa là đủ tiền tháng 9-10"],
               ["02/09/2026", "Expense", 150000, "Di chuyển", 0, "Đổ xăng đầy bình"],
               ["01/09/2026", "Income", 9000000, "Lương", 1000000, "Lương tháng 8/2026"]
             ]), 300);
@@ -298,6 +303,12 @@
     document.getElementById('seg-val-owe-me').innerText = fmt(totalOweMe);
     document.getElementById('seg-val-i-owe').innerText = fmt(totalIOwe);
     debtAction.dispatchEvent(new Event('change'));
+
+    if (res.sheetUrl) {
+      const link = document.getElementById('sheet-link');
+      link.href = res.sheetUrl;
+      link.style.display = 'inline-block';
+    }
   }
 
   function loadDashboard() {
