@@ -1,6 +1,17 @@
-# MyCashFlow 💧
+<h1 align="center">MyCashFlow</h1>
 
-<img src="./screenshot.png" width="300">
+<p align="center">
+  <a href="ttasc.github.io/MyCashFlow/">
+    <img src="https://img.shields.io/badge/🔴_Live_Demo-blue?style=for-the-badge">
+  </a>
+  <a href="https://docs.google.com/spreadsheets/d/13JR83SFOzgWX-0yK2RmADM0IrgY1yke8ZBvr9e-7UNI/edit?usp=sharing">
+    <img src="https://img.shields.io/badge/📊_Sheet_Template-37a779?style=for-the-badge">
+  </a>
+</p>
+
+<div align="center">
+  <img src="./screenshot.png" width="300">
+</div>
 
 Một công cụ theo dõi tài chính cá nhân tối giản, không phụ thuộc thư viện bên ngoài (zero-dependency), được xây dựng hoàn toàn trên nền tảng Google Sheets và Google Apps Script.
 

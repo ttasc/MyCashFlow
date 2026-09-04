@@ -3,7 +3,7 @@
  */
 
 function doGet() {
-  return HtmlService.createHtmlOutputFromFile('Index')
+  return HtmlService.createHtmlOutputFromFile('index')
     .setTitle('MyCashFlow')
     .addMetaTag('viewport', 'width=device-width, initial-scale=1'); // Chuẩn Mobile-first
 }
