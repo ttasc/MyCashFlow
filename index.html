@@ -5,49 +5,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>MyCashFlow</title>
   <style>
+    /* =========================================
+       VARIABLES & BASE
+       ========================================= */
     :root {
-      --bg: #F0F4F8;
-      --surface: #FFFFFF;
-      --text-main: #102A43;
-      --text-muted: #627D98;
-      --primary: #0077B6;
-      --primary-fade: #E0F2FE;
-      --green: #059669;
-      --red: #E11D48;
-      --border: #D9E2EC;
-      --radius: 16px;
-      --shadow: 0 4px 20px rgba(0, 119, 182, 0.08);
+      --bg: #F0F4F8; --surface: #FFFFFF; --text-main: #102A43; --text-muted: #627D98;
+      --primary: #0077B6; --primary-fade: #E0F2FE; --green: #059669; --red: #E11D48;
+      --border: #D9E2EC; --radius: 16px; --shadow: 0 4px 20px rgba(0, 119, 182, 0.08);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background-color: var(--bg); color: var(--text-main); line-height: 1.5; padding-bottom: 90px; }
-    .app { max-width: 500px; margin: 0 auto; min-height: 100vh; background: var(--bg); position: relative; }
-    header { padding: 25px 20px 15px; text-align: center; }
-    h1 { font-size: 1.4rem; font-weight: 700; color: var(--primary); letter-spacing: -0.5px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background: var(--bg); color: var(--text-main); line-height: 1.5; padding-bottom: 90px; }
+    .app { max-width: 500px; margin: 0 auto; min-height: 100vh; background: var(--bg); }
 
-    .view { display: none; padding: 0 20px 20px; animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+    header { padding: 25px 20px 15px; text-align: center; }
+    h1 { font-size: 1.4rem; color: var(--primary); letter-spacing: -0.5px; }
+
+    /* =========================================
+       LAYOUT & NAVIGATION
+       ========================================= */
+    .view { display: none; padding: 0 20px 20px; animation: slideUp 0.3s ease; }
     .view.active { display: block; }
     @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); display: flex; justify-content: space-around; padding: 10px 15px 25px; border-top: 1px solid var(--border); z-index: 10; max-width: 500px; margin: 0 auto; border-radius: 10px; }
-    nav button { flex: 1; margin: 0 5px; padding: 12px 0; border: none; background: transparent; color: var(--text-muted); font-size: 0.9rem; font-weight: 600; border-radius: 12px; cursor: pointer; transition: 0.2s ease; }
+    nav {
+      position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px); display: flex; padding: 10px 15px 25px;
+      border-top: 1px solid var(--border); z-index: 10; max-width: 500px; margin: 0 auto;
+    }
+    nav button { flex: 1; padding: 12px 0; border: none; background: transparent; color: var(--text-muted); font-weight: 600; border-radius: 12px; cursor: pointer; transition: 0.2s; }
     nav button.active { background: var(--primary-fade); color: var(--primary); }
 
-    .card { background: var(--surface); padding: 20px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.5); }
-    .card h3 { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; font-weight: 600; }
+    /* =========================================
+       CARDS & UI COMPONENTS
+       ========================================= */
+    .card { background: var(--surface); padding: 20px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 16px; }
+    .card h3 { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 12px; font-weight: 600; }
 
-    .hero { text-align: center; background: linear-gradient(135deg, var(--primary) 0%, #00B4D8 100%); color: white; border: none; }
+    .hero { text-align: center; background: linear-gradient(135deg, var(--primary), #00B4D8); color: white; }
     .hero h3 { color: rgba(255,255,255,0.8); margin-bottom: 4px; }
     .hero .value { font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; margin: 5px 0; }
-    .hero .sub-value { font-size: 1rem; color: rgba(255,255,255,0.9); background: rgba(0,0,0,0.1); padding: 5px 12px; border-radius: 20px; display: inline-block; }
+    .hero .sub-value { font-size: 1rem; background: rgba(0,0,0,0.1); padding: 5px 12px; border-radius: 20px; display: inline-block; }
 
     .value { font-size: 1.4rem; font-weight: 700; color: var(--text-main); }
     .val-green { color: var(--green); }
     .val-red { color: var(--red); }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
+    /* Tabs */
     .segment-control { display: flex; background: var(--bg); border-radius: 12px; padding: 4px; margin-bottom: 16px; }
-    .segment-btn { flex: 1; border: none; background: transparent; padding: 10px 4px; border-radius: 10px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .segment-btn { flex: 1; border: none; background: transparent; padding: 10px 4px; border-radius: 10px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); cursor: pointer; display: flex; flex-direction: column; align-items: center; }
     .segment-btn span { font-size: 0.75rem; font-weight: 700; }
     .segment-btn.active { background: var(--surface); color: var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
 
@@ -55,51 +62,52 @@
     .debt-tab-content.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    .debt-list { display: flex; flex-direction: column; gap: 10px; }
-    .debt-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 12px; background: var(--bg); border-radius: 10px; gap: 12px; }
-    .debt-name { flex: 1; font-size: 0.95rem; font-weight: 500; word-break: break-word; line-height: 1.4; color: var(--text-main); }
-    .debt-amount { flex-shrink: 0; white-space: nowrap; font-weight: 700; font-size: 1rem; }
+    /* Lists */
+    .debt-item { display: flex; justify-content: space-between; padding: 12px; background: var(--bg); border-radius: 10px; margin-bottom: 10px; }
+    .debt-name { flex: 1; font-size: 0.95rem; font-weight: 500; word-break: break-word; }
+    .debt-amount { font-weight: 700; }
 
-    .flex-row { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; }
-    .input-month { flex: 1; padding: 12px; border-radius: 10px; border: none; background: var(--bg); color: var(--text-main); font-family: inherit; font-size: 1rem; outline: none; }
-    .btn-secondary { padding: 12px 20px; background: var(--primary-fade); color: var(--primary); border: none; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 0.9rem;}
+    .flex-row { display: flex; gap: 10px; margin-bottom: 12px; }
+    .input-month { flex: 1; padding: 12px; border-radius: 10px; border: none; background: var(--bg); color: var(--text-main); font-size: 1rem; outline: none; }
+    .btn-secondary { padding: 12px 20px; background: var(--primary-fade); color: var(--primary); border: none; border-radius: 10px; font-weight: 700; cursor: pointer; }
 
     #hist-list { margin-top: 10px; border-top: 1px solid var(--border); padding-top: 8px; }
     .tx-item { padding: 12px 0; border-bottom: 1px dashed var(--border); }
     .tx-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .tx-top { display: flex; justify-content: space-between; font-weight: 500; margin-bottom: 2px; font-size: 1rem; }
-    .tx-bot { display: flex; flex-direction: column; gap: 3px; }
-    .tx-date-sav { font-size: 0.75rem; color: #829AB1; letter-spacing: 0.2px; }
-    .tx-note { font-size: 0.85rem; color: var(--text-muted); padding-left: 14px; position: relative; word-break: break-word; line-height: 1.4; }
-    .tx-note::before { content: '↳'; position: absolute; left: 0; top: -1px; color: #9FB3C8; font-size: 0.9rem; }
+    .tx-top { display: flex; justify-content: space-between; font-weight: 500; margin-bottom: 2px; }
+    .tx-bot { display: flex; flex-direction: column; gap: 3px; font-size: 0.85rem;}
+    .tx-date-sav { font-size: 0.75rem; color: #829AB1; }
+    .tx-note { color: var(--text-muted); padding-left: 14px; position: relative; word-break: break-word; line-height: 1.4; }
+    .tx-note::before { content: '↳'; position: absolute; left: 0; top: -1px; color: #9FB3C8; }
 
+    /* Forms */
     .form-group { margin-bottom: 16px; }
-    label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--text-main); }
-    input[type="text"], input[type="number"], select { width: 100%; padding: 14px 16px; background: var(--bg); border: 1px solid transparent; color: var(--text-main); border-radius: 12px; font-size: 1rem; outline: none; transition: 0.2s; appearance: none; }
+    label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
+    input[type="text"], input[type="number"], select { width: 100%; padding: 14px 16px; background: var(--bg); border: 1px solid transparent; color: var(--text-main); border-radius: 12px; font-size: 1rem; outline: none; appearance: none; transition: 0.2s; }
     input:focus, select:focus { background: var(--surface); border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-fade); }
     select { background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23627D98' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; }
 
     .checkbox-group { display: flex; align-items: center; gap: 8px; margin: 16px 0; padding: 12px 16px; background: var(--primary-fade); border-radius: 12px; cursor: pointer; }
     .checkbox-group input { width: 20px; height: 20px; accent-color: var(--primary); }
-    .checkbox-group label { margin: 0; font-size: 0.95rem; cursor: pointer; color: var(--primary); }
-
+    .checkbox-group label { margin: 0; color: var(--primary); cursor: pointer; font-weight: 600; }
     #savings-section { padding: 16px; border: 1px dashed var(--primary); border-radius: 12px; margin-bottom: 16px; background: var(--surface); }
-    .btn-submit { width: 100%; padding: 16px; background: var(--primary); color: white; border: none; border-radius: 12px; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(0, 119, 182, 0.3); margin-top: 8px; }
+
+    .btn-submit { width: 100%; padding: 16px; background: var(--primary); color: white; border: none; border-radius: 12px; font-size: 1.05rem; font-weight: 700; cursor: pointer; margin-top: 8px; transition: 0.2s; }
     .btn-submit:active { transform: scale(0.98); background: #005F92; }
     .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
-
-    .loading { text-align: center; color: var(--primary); font-weight: 500; margin-top: 40px; animation: pulse 1.5s infinite; }
     .sync-indicator { font-size: 0.75rem; text-align: center; color: var(--text-muted); margin-top: 10px; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
   </style>
 </head>
 <body>
 <div class="app">
   <header><h1>MyCashFlow</h1></header>
 
+  <!-- DASHBOARD -->
   <main id="view-dash" class="view active">
-    <div id="dash-loading" class="loading">Đang tải dữ liệu...</div>
+    <div id="dash-loading" style="text-align:center; color:var(--primary); font-weight:600; padding:40px;">Đang tải dữ liệu...</div>
     <div id="dash-content" style="display: none;">
+
+      <!-- Metrics -->
       <div class="card hero">
         <h3>Tổng tài sản</h3>
         <div class="value" id="val-total-bal">0</div>
@@ -110,299 +118,419 @@
         <h3>Tháng hiện tại (<span id="val-month">--</span>)</h3>
         <div class="grid-2">
           <div style="background: var(--bg); padding: 12px; border-radius: 10px;">
-            <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px;">Tổng Thu</div>
-            <div class="value val-green" id="val-m-income" style="word-break: break-all;">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Tổng Thu</div>
+            <div class="value val-green" id="val-m-income">0</div>
           </div>
           <div style="background: var(--bg); padding: 12px; border-radius: 10px;">
-            <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px;">Tổng Chi</div>
-            <div class="value val-red" id="val-m-expense" style="word-break: break-all;">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Tổng Chi</div>
+            <div class="value val-red" id="val-m-expense">0</div>
           </div>
         </div>
-        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border); display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
-          <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted); white-space: nowrap;">Dư trong tháng</span>
-          <span class="value" id="val-m-balance" style="font-size: 1.2rem; text-align: right; word-break: break-word;">0</span>
+        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border); display: flex; justify-content: space-between;">
+          <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted);">Dư trong tháng</span>
+          <span class="value" id="val-m-balance">0</span>
         </div>
       </div>
 
+      <!-- Debts -->
       <div class="card" style="padding: 16px;">
         <div class="segment-control">
           <button class="segment-btn active" onclick="switchDebtTab('owe-me')" id="seg-btn-owe-me">Người ta nợ <span id="seg-val-owe-me" class="val-green">0</span></button>
           <button class="segment-btn" onclick="switchDebtTab('i-owe')" id="seg-btn-i-owe">Mình nợ <span id="seg-val-i-owe" class="val-red">0</span></button>
         </div>
-        <div id="tab-owe-me" class="debt-tab-content active"><div class="debt-list" id="list-owe-me"></div></div>
-        <div id="tab-i-owe" class="debt-tab-content"><div class="debt-list" id="list-i-owe"></div></div>
+        <div id="tab-owe-me" class="debt-tab-content active"><div id="list-owe-me"></div></div>
+        <div id="tab-i-owe" class="debt-tab-content"><div id="list-i-owe"></div></div>
       </div>
 
+      <!-- History -->
       <div class="card">
         <h3>Lịch sử giao dịch</h3>
-        <div class="flex-row" style="margin-bottom: 0;">
+        <div class="flex-row" style="margin: 0;">
           <input type="month" id="hist-month" class="input-month">
           <button class="btn-secondary" onclick="loadHistory()" id="btn-hist">Xem</button>
         </div>
         <div id="hist-list" style="display: none;"></div>
       </div>
 
+      <!-- Footer & Link -->
       <div id="sync-status" class="sync-indicator">Đã đồng bộ</div>
       <div style="text-align: center; margin-top: 8px;">
-        <a id="sheet-link" href="#" target="_blank" style="display: none; font-size: 0.85rem; color: var(--primary); text-decoration: none; font-weight: 600; padding: 5px;">Mở Google Sheet ↗</a>
+        <a id="sheet-link" href="#" target="_blank" style="display:none; font-size:0.85rem; color:var(--primary); text-decoration:none; font-weight:600;">Mở Google Sheet ↗</a>
       </div>
     </div>
   </main>
 
+  <!-- TRANSACTIONS -->
   <main id="view-tx" class="view">
     <div class="card">
-      <div class="form-group"><label>Loại giao dịch</label><select id="tx-type"><option value="Expense">Chi tiền</option><option value="Income">Thu nhập</option></select></div>
-      <div class="form-group"><label>Số tiền (VNĐ)</label><input type="number" id="tx-amount" placeholder="0" required inputmode="numeric"></div>
       <div class="form-group">
-        <label>Hạng mục</label><input type="text" id="tx-category" placeholder="Ví dụ: Ăn uống, Lương..." list="cat-list">
+        <label>Loại giao dịch</label>
+        <select id="tx-type">
+          <option value="Expense">Chi tiền</option>
+          <option value="Income">Thu nhập</option>
+          <option value="Withdraw">Rút tiền tiết kiệm</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Số tiền (VNĐ)</label><input type="number" id="tx-amount" placeholder="0" inputmode="numeric"></div>
+
+      <div class="form-group" id="cat-group">
+        <label>Hạng mục</label>
+        <input type="text" id="tx-category" placeholder="Ví dụ: Ăn uống, Lương..." list="cat-list">
         <datalist id="cat-list"><option value="Lương"></option><option value="Ăn uống"></option><option value="Di chuyển"></option><option value="Sinh hoạt"></option></datalist>
       </div>
-      <label class="checkbox-group" id="chk-save-group" style="display: none;"><input type="checkbox" id="tx-is-saving" checked><span>Trích tiết kiệm</span></label>
-      <div id="savings-section" style="display: none;">
+
+      <label class="checkbox-group" id="chk-save-group" style="display:none;">
+        <input type="checkbox" id="tx-is-saving" checked><span>Trích tiết kiệm</span>
+      </label>
+
+      <div id="savings-section" style="display:none;">
         <div class="grid-2">
           <div class="form-group" style="margin:0;"><label>Hình thức</label><select id="tx-save-type"><option value="percent">Tỉ lệ (%)</option><option value="fixed">Cố định</option></select></div>
           <div class="form-group" style="margin:0;"><label>Mức trích</label><input type="number" id="tx-save-val" value="10" inputmode="numeric"></div>
         </div>
       </div>
-      <div class="form-group" style="margin-bottom: 0;"><label>Ghi chú</label><input type="text" id="tx-note" placeholder="Chi tiết..."></div>
+
+      <div class="form-group" style="margin:0;"><label>Ghi chú</label><input type="text" id="tx-note" placeholder="Chi tiết..."></div>
     </div>
     <button class="btn-submit" onclick="submitTx()" id="btn-tx">Ghi Nhận Giao Dịch</button>
   </main>
 
+  <!-- DEBTS -->
   <main id="view-debt" class="view">
     <div class="card">
-      <div class="form-group"><label>Hành động</label><select id="debt-action"><option value="Lend">Cho vay</option><option value="Borrow">Đi vay</option><option value="Collect">Thu nợ</option><option value="Repay">Trả nợ</option></select></div>
+      <div class="form-group">
+        <label>Hành động</label>
+        <select id="debt-action">
+          <option value="Lend">Cho vay</option>
+          <option value="Borrow">Đi vay</option>
+          <option value="Collect">Thu nợ</option>
+          <option value="Repay">Trả nợ</option>
+        </select>
+      </div>
       <div class="form-group"><label>Số tiền (VNĐ)</label><input type="number" id="debt-amount" placeholder="0" inputmode="numeric"></div>
-      <div class="form-group"><label>Đối tượng</label><input type="text" id="debt-person-input" placeholder="Nhập tên..."><select id="debt-person-select" style="display: none;"></select></div>
-      <div class="form-group" style="margin-bottom: 0;"><label>Ghi chú</label><input type="text" id="debt-note" placeholder="Chi tiết..."></div>
+
+      <div class="form-group">
+        <label>Đối tượng</label>
+        <input type="text" id="debt-person-input" placeholder="Nhập tên người...">
+        <select id="debt-person-select" style="display:none;"></select>
+      </div>
+
+      <div class="form-group" style="margin:0;"><label>Ghi chú</label><input type="text" id="debt-note" placeholder="Chi tiết..."></div>
     </div>
     <button class="btn-submit" onclick="submitDebt()" id="btn-debt">Cập Nhật Công Nợ</button>
   </main>
 
+  <!-- BOTTOM NAV -->
   <nav>
     <button class="active" onclick="switchTab('dash')" id="tab-dash">Tổng quan</button>
-    <button onclick="switchTab('tx')" id="tab-tx">Thu/Chi</button>
+    <button onclick="switchTab('tx')" id="tab-tx">Giao dịch mới</button>
     <button onclick="switchTab('debt')" id="tab-debt">Vay/Nợ</button>
   </nav>
 </div>
 
 <script>
-  const fmt = (num) => new Intl.NumberFormat('vi-VN').format(num || 0);
-  let activeDebtsState = {};
+  // ==========================================
+  // UTILITIES & STATE
+  // ==========================================
+  const $ = id => document.getElementById(id);
+  const fmt = num => new Intl.NumberFormat('vi-VN').format(num || 0);
+  const setBtnState = (id, text, disabled) => { $(id).innerText = text; $(id).disabled = disabled; };
 
+  let activeDebtsState = {};
+  let currentTotalSavings = 0;
+
+  // ==========================================
+  // MOCK DATA (Local Testing)
+  // ==========================================
   if (typeof google === 'undefined') {
-    window.google = {
-      script: {
-        run: {
-          withSuccessHandler: function(cb) { this.cb = cb; return this; },
-          getDashboardData: function() {
-            setTimeout(() => this.cb({
-              sheetUrl: "https://docs.google.com/spreadsheets/",
-              metrics: { currentMonth: "09/2026", monthlyIncome: 9000000, monthlyExpense: 400000, monthlyBalance: 903150000, totalBalance: 1500000000, totalSavings: 20000000 },
-              debts: [
-                ["", "Lend", 10000000, "Nguyễn Văn Linh"],
-                ["", "Lend", 1000000, "HEHE"],
-                ["", "Borrow", 1000000000, "Ông chú Viettel đòi nợ cuối tháng"],
-                ["", "Borrow", 500000, "Bà bán phở đầu ngõ"]
-              ]
-            }), 300);
-          },
-          getTransactions: function(month) {
-            setTimeout(() => this.cb([
-              ["05/09/2026", "Expense", 50000, "Ăn uống", 0, "Ăn sáng bún bò"],
-              ["04/09/2026", "Expense", 200000, "Tiền nhà", 0, "Ứng trước cho Châu 1 tháng, giờ chuyển 1 tháng nữa là đủ tiền tháng 9-10"],
-              ["02/09/2026", "Expense", 150000, "Di chuyển", 0, "Đổ xăng đầy bình"],
-              ["01/09/2026", "Income", 9000000, "Lương", 1000000, "Lương tháng 8/2026"]
-            ]), 300);
-          },
-          submitTransaction: function() { setTimeout(() => this.cb(), 300); },
-          submitDebt: function() { setTimeout(() => this.cb(), 300); }
+    window.google = { script: { run: {
+      withSuccessHandler: function(cb) { this.cb = cb; return this; },
+      getDashboardData: function() {
+        setTimeout(() => this.cb({
+          sheetUrl: "#",
+          metrics: { currentMonth: "09/2026", monthlyIncome: 9000000, monthlyExpense: 400000, monthlyBalance: 903150000, totalBalance: 1500000000, totalSavings: 20000000 },
+          debts: [
+            ["", "Lend", 10000000, "Nguyễn Văn Linh"],
+            ["", "Borrow", 1000000000, "Ông chú Viettel đòi nợ"]
+          ]
+        }), 300);
+      },
+      getTransactions: function() {
+        setTimeout(() => this.cb([
+          ["06/09/2026", "Withdraw", 2000000, "Rút tiết kiệm", -2000000, "Mua quà"],
+          ["05/09/2026", "Expense", 50000, "Ăn uống", 0, "Ăn sáng bún bò"],
+          ["01/09/2026", "Income", 9000000, "Lương", 1000000, ""]
+        ]), 300);
+      },
+      submitTransaction: function() { setTimeout(() => this.cb(), 300); },
+      submitDebt: function() { setTimeout(() => this.cb(), 300); }
+    }}};
+  }
+
+  // ==========================================
+  // INITIALIZATION & NAVIGATION
+  // ==========================================
+  window.onload = () => {
+    const d = new Date();
+    $('hist-month').value = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+    $('hist-month').addEventListener('change', () => {
+      $('hist-list').style.display = 'none';
+      setBtnState('btn-hist', 'Xem', false);
+    });
+    loadDashboard();
+  };
+
+  const switchTab = tab => {
+    document.querySelectorAll('.view, nav button').forEach(e => e.classList.remove('active'));
+    $(`view-${tab}`).classList.add('active');
+    $(`tab-${tab}`).classList.add('active');
+    if (tab === 'dash') loadDashboard();
+  };
+
+  const switchDebtTab = tab => {
+    document.querySelectorAll('.segment-btn, .debt-tab-content').forEach(e => e.classList.remove('active'));
+    $(`seg-btn-${tab}`).classList.add('active');
+    $(`tab-${tab}`).classList.add('active');
+  };
+
+  // ==========================================
+  // FORM BEHAVIORS (UI Logic)
+  // ==========================================
+  $('tx-type').addEventListener('change', e => {
+    const type = e.target.value;
+    const isIncome = type === 'Income';
+
+    $('chk-save-group').style.display = isIncome ? 'flex' : 'none';
+    $('savings-section').style.display = (isIncome && $('tx-is-saving').checked) ? 'block' : 'none';
+    $('cat-group').style.display = type === 'Withdraw' ? 'none' : 'block';
+  });
+
+  $('tx-is-saving').addEventListener('change', e => {
+    $('savings-section').style.display = e.target.checked ? 'block' : 'none';
+  });
+
+  $('debt-action').addEventListener('change', e => {
+    const action = e.target.value;
+    const isOutgoing = action === 'Lend' || action === 'Borrow';
+
+    $('debt-person-input').style.display = isOutgoing ? 'block' : 'none';
+    $('debt-person-select').style.display = isOutgoing ? 'none' : 'block';
+
+    if (!isOutgoing) {
+      let options = '<option value="">-- Chọn --</option>';
+      for (const [person, data] of Object.entries(activeDebtsState)) {
+        if (action === 'Collect' && data.oweMe > 0) {
+          options += `<option value="${person}">${person} (Nợ: ${fmt(data.oweMe)})</option>`;
+        }
+        if (action === 'Repay' && data.iOwe > 0) {
+          options += `<option value="${person}">${person} (Nợ: ${fmt(data.iOwe)})</option>`;
         }
       }
-    };
-  }
-
-  function initApp() {
-    const now = new Date();
-    const histMonth = document.getElementById('hist-month');
-    histMonth.value = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-
-    histMonth.addEventListener('change', () => {
-      document.getElementById('hist-list').style.display = 'none';
-      document.getElementById('btn-hist').innerText = 'Xem';
-    });
-
-    loadDashboard();
-  }
-
-  function switchTab(tab) {
-    document.querySelectorAll('.view, nav button').forEach(e => e.classList.remove('active'));
-    document.getElementById(`view-${tab}`).classList.add('active');
-    document.getElementById(`tab-${tab}`).classList.add('active');
-    if (tab === 'dash') loadDashboard();
-  }
-
-  function switchDebtTab(tab) {
-    document.querySelectorAll('.segment-btn, .debt-tab-content').forEach(e => e.classList.remove('active'));
-    document.getElementById(`seg-btn-${tab}`).classList.add('active');
-    document.getElementById(`tab-${tab}`).classList.add('active');
-  }
-
-  const txType = document.getElementById('tx-type'), chkSaveGroup = document.getElementById('chk-save-group'), saveSection = document.getElementById('savings-section'), txIsSaving = document.getElementById('tx-is-saving');
-  txType.addEventListener('change', e => { const isInc = e.target.value === 'Income'; chkSaveGroup.style.display = isInc ? 'flex' : 'none'; saveSection.style.display = (isInc && txIsSaving.checked) ? 'block' : 'none'; });
-  txIsSaving.addEventListener('change', e => saveSection.style.display = e.target.checked ? 'block' : 'none');
-
-  const debtAction = document.getElementById('debt-action'), debtPersonInput = document.getElementById('debt-person-input'), debtPersonSelect = document.getElementById('debt-person-select');
-  debtAction.addEventListener('change', e => {
-    const action = e.target.value;
-    if (action === 'Lend' || action === 'Borrow') {
-      debtPersonInput.style.display = 'block'; debtPersonSelect.style.display = 'none';
-    } else {
-      debtPersonInput.style.display = 'none'; debtPersonSelect.style.display = 'block';
-      debtPersonSelect.innerHTML = '<option value="">-- Chọn --</option>';
-      for (const [person, data] of Object.entries(activeDebtsState)) {
-        if (action === 'Collect' && data.oweMe > 0) debtPersonSelect.innerHTML += `<option value="${person}">${person} (Nợ: ${fmt(data.oweMe)})</option>`;
-        if (action === 'Repay' && data.iOwe > 0) debtPersonSelect.innerHTML += `<option value="${person}">${person} (Nợ: ${fmt(data.iOwe)})</option>`;
-      }
+      $('debt-person-select').innerHTML = options;
     }
   });
 
-  function processDebts(rawData) {
+  // ==========================================
+  // CORE LOGIC & API
+  // ==========================================
+
+  // Data Processor
+  function processDebts(debtsArray) {
     const db = {};
-    rawData.forEach(row => {
+    debtsArray.forEach(row => {
       const [, action, amount, person] = row;
-      if(!person) return;
-      if(!db[person]) db[person] = { oweMe: 0, iOwe: 0 };
-      if(action === 'Lend') db[person].oweMe += amount;
-      if(action === 'Collect') db[person].oweMe -= amount;
-      if(action === 'Borrow') db[person].iOwe += amount;
-      if(action === 'Repay') db[person].iOwe -= amount;
+      if (!person) return;
+      if (!db[person]) db[person] = { oweMe: 0, iOwe: 0 };
+
+      if (action === 'Lend') db[person].oweMe += amount;
+      if (action === 'Collect') db[person].oweMe -= amount;
+      if (action === 'Borrow') db[person].iOwe += amount;
+      if (action === 'Repay') db[person].iOwe -= amount;
     });
     return db;
   }
 
+  // Dashboard Renderer
   function renderDashUI(res) {
     const m = res.metrics;
-    document.getElementById('val-month').innerText = m.currentMonth;
-    document.getElementById('val-m-income').innerText = fmt(m.monthlyIncome);
-    document.getElementById('val-m-expense').innerText = fmt(m.monthlyExpense);
-    document.getElementById('val-m-balance').innerText = fmt(m.monthlyBalance);
-    document.getElementById('val-m-balance').className = 'value ' + (m.monthlyBalance < 0 ? 'val-red' : 'val-green');
-    document.getElementById('val-total-bal').innerText = fmt(m.totalBalance);
-    document.getElementById('val-total-sav').innerText = fmt(m.totalSavings);
+    currentTotalSavings = m.totalSavings || 0;
 
+    // Render Metrics
+    $('val-month').innerText = m.currentMonth;
+    $('val-m-income').innerText = fmt(m.monthlyIncome);
+    $('val-m-expense').innerText = fmt(m.monthlyExpense);
+    $('val-total-bal').innerText = fmt(m.totalBalance);
+    $('val-total-sav').innerText = fmt(currentTotalSavings);
+
+    $('val-m-balance').innerText = fmt(m.monthlyBalance);
+    $('val-m-balance').className = 'value ' + (m.monthlyBalance < 0 ? 'val-red' : 'val-green');
+
+    // Render Debts
     activeDebtsState = processDebts(res.debts);
     let htmlOweMe = '', htmlIOwe = '', totalOweMe = 0, totalIOwe = 0;
 
     for (const [person, data] of Object.entries(activeDebtsState)) {
-      if (data.oweMe > 0) { htmlOweMe += `<div class="debt-item"><span class="debt-name">${person}</span><span class="debt-amount val-green">${fmt(data.oweMe)}</span></div>`; totalOweMe += data.oweMe; }
-      if (data.iOwe > 0) { htmlIOwe += `<div class="debt-item"><span class="debt-name">${person}</span><span class="debt-amount val-red">${fmt(data.iOwe)}</span></div>`; totalIOwe += data.iOwe; }
+      if (data.oweMe > 0) {
+        htmlOweMe += `<div class="debt-item"><span>${person}</span><span class="val-green">${fmt(data.oweMe)}</span></div>`;
+        totalOweMe += data.oweMe;
+      }
+      if (data.iOwe > 0) {
+        htmlIOwe += `<div class="debt-item"><span>${person}</span><span class="val-red">${fmt(data.iOwe)}</span></div>`;
+        totalIOwe += data.iOwe;
+      }
     }
-    document.getElementById('list-owe-me').innerHTML = htmlOweMe || '<div class="debt-item"><span style="color:var(--text-muted)">Không có</span></div>';
-    document.getElementById('list-i-owe').innerHTML = htmlIOwe || '<div class="debt-item"><span style="color:var(--text-muted)">Không có</span></div>';
-    document.getElementById('seg-val-owe-me').innerText = fmt(totalOweMe);
-    document.getElementById('seg-val-i-owe').innerText = fmt(totalIOwe);
-    debtAction.dispatchEvent(new Event('change'));
 
+    const emptyState = '<div class="debt-item" style="color:var(--text-muted)">Không có dữ liệu</div>';
+    $('list-owe-me').innerHTML = htmlOweMe || emptyState;
+    $('list-i-owe').innerHTML = htmlIOwe || emptyState;
+    $('seg-val-owe-me').innerText = fmt(totalOweMe);
+    $('seg-val-i-owe').innerText = fmt(totalIOwe);
+
+    $('debt-action').dispatchEvent(new Event('change'));
+
+    // Render Link
     if (res.sheetUrl) {
-      const link = document.getElementById('sheet-link');
-      link.href = res.sheetUrl;
-      link.style.display = 'inline-block';
+      $('sheet-link').href = res.sheetUrl;
+      $('sheet-link').style.display = 'inline-block';
     }
   }
 
   function loadDashboard() {
-    const cached = localStorage.getItem('mcf_cache');
-    const syncStatus = document.getElementById('sync-status');
+    const cache = localStorage.getItem('mcf_cache');
 
-    if (cached) {
-      renderDashUI(JSON.parse(cached));
-      document.getElementById('dash-loading').style.display = 'none';
-      document.getElementById('dash-content').style.display = 'block';
-      syncStatus.innerText = 'Đang đồng bộ...';
+    // Optimistic UI loading
+    if (cache) {
+      renderDashUI(JSON.parse(cache));
+      $('dash-loading').style.display = 'none';
+      $('dash-content').style.display = 'block';
+      $('sync-status').innerText = 'Đang đồng bộ...';
     } else {
-      document.getElementById('dash-loading').style.display = 'block';
-      document.getElementById('dash-content').style.display = 'none';
+      $('dash-loading').style.display = 'block';
+      $('dash-content').style.display = 'none';
     }
 
     google.script.run.withSuccessHandler(res => {
       localStorage.setItem('mcf_cache', JSON.stringify(res));
       renderDashUI(res);
-      document.getElementById('dash-loading').style.display = 'none';
-      document.getElementById('dash-content').style.display = 'block';
-      syncStatus.innerText = 'Đã đồng bộ ' + new Date().toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'});
+      $('dash-loading').style.display = 'none';
+      $('dash-content').style.display = 'block';
+      $('sync-status').innerText = 'Đã đồng bộ ' + new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
     }).getDashboardData();
   }
 
   function loadHistory() {
-    const month = document.getElementById('hist-month').value;
-    if(!month) return;
-    const btn = document.getElementById('btn-hist');
-    const list = document.getElementById('hist-list');
+    const month = $('hist-month').value;
+    const list = $('hist-list');
 
+    if (!month) return;
+
+    // Toggle Logic
     if (list.style.display === 'block') {
       list.style.display = 'none';
-      btn.innerText = 'Xem';
+      setBtnState('btn-hist', 'Xem', false);
       return;
     }
 
-    btn.innerText = '...';
-    btn.disabled = true;
+    setBtnState('btn-hist', '...', true);
 
     google.script.run.withSuccessHandler(data => {
-      btn.innerText = 'Ẩn';
-      btn.disabled = false;
+      setBtnState('btn-hist', 'Ẩn', false);
       list.style.display = 'block';
 
-      if(!data || data.length === 0) return list.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding: 15px 0;">Không có dữ liệu</div>';
+      if (!data || data.length === 0) {
+        list.innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:15px 0;">Không có dữ liệu</div>';
+        return;
+      }
 
-      list.innerHTML = data.map(r => {
-        const isInc = r[1] === 'Income';
-        return `<div class="tx-item">
-          <div class="tx-top">
-            <span>${r[3] || 'Khác'}</span>
-            <span class="${isInc ? 'val-green' : 'val-red'}">${isInc?'+':'-'}${fmt(r[2])}</span>
-          </div>
-          <div class="tx-bot">
-            <span class="tx-date-sav">${r[0]} ${r[4] > 0 ? `• Tiết kiệm: ${fmt(r[4])}` : ''}</span>
-            ${r[5] ? `<span class="tx-note">${r[5]}</span>` : ''}
-          </div>
-        </div>`;
+      list.innerHTML = data.map(row => {
+        const [date, type, amount, category, savings, note] = row;
+        const isIncome = type === 'Income' || type === 'Withdraw';
+
+        const amountSign = isIncome ? '+' : '-';
+        const colorClass = isIncome ? 'val-green' : 'val-red';
+        const saveText = savings > 0 ? `• Tiết kiệm: ${fmt(savings)}` : '';
+        const noteText = note ? `<span class="tx-note">${note}</span>` : '';
+
+        return `
+          <div class="tx-item">
+            <div class="tx-top">
+              <span>${category || 'Khác'}</span>
+              <span class="${colorClass}">${amountSign}${fmt(amount)}</span>
+            </div>
+            <div class="tx-bot">
+              <span class="tx-date-sav">${date} ${saveText}</span>
+              ${noteText}
+            </div>
+          </div>`;
       }).join('');
     }).getTransactions(month);
   }
 
   function submitTx() {
-    const amt = parseFloat(document.getElementById('tx-amount').value);
-    if(!amt) return alert('Vui lòng nhập số tiền');
-    const type = txType.value;
-    let sav = 0;
-    if (type === 'Income' && txIsSaving.checked) {
-      const sType = document.getElementById('tx-save-type').value, sVal = parseFloat(document.getElementById('tx-save-val').value) || 0;
-      sav = sType === 'percent' ? (amt * sVal / 100) : sVal;
+    const amount = parseFloat($('tx-amount').value);
+    const type = $('tx-type').value;
+    let savings = 0;
+    let category = $('tx-category').value.trim();
+
+    // Validation
+    if (!amount || amount <= 0) return alert('Số tiền phải lớn hơn 0!');
+
+    if (type === 'Withdraw') {
+      if (amount > currentTotalSavings) return alert('Số tiền rút không được vượt quá tổng tiết kiệm!');
+      savings = -amount;
+      category = 'Rút tiền tiết kiệm';
+    } else {
+      if (!category) return alert('Vui lòng nhập hạng mục giao dịch!');
+
+      if (type === 'Income' && $('tx-is-saving').checked) {
+        const saveVal = parseFloat($('tx-save-val').value) || 0;
+        const isPercent = $('tx-save-type').value === 'percent';
+
+        if (saveVal <= 0) return alert('Mức trích tiết kiệm phải lớn hơn 0!');
+        if (isPercent && saveVal > 100) return alert('Tỉ lệ trích không được vượt quá 100%!');
+        if (!isPercent && saveVal > amount) return alert('Số tiền trích không được lớn hơn tổng thu nhập!');
+
+        savings = isPercent ? (amount * saveVal / 100) : saveVal;
+      }
     }
-    const payload = { type, amount: amt, category: document.getElementById('tx-category').value.trim(), savings: sav, note: document.getElementById('tx-note').value.trim() };
-    const btn = document.getElementById('btn-tx'); btn.innerText = 'Đang ghi...'; btn.disabled = true;
+
+    setBtnState('btn-tx', 'Đang ghi...', true);
+
+    const payload = { type, amount, category, savings, note: $('tx-note').value.trim() };
 
     google.script.run.withSuccessHandler(() => {
-      alert('Đã lưu!'); document.getElementById('tx-amount').value = ''; document.getElementById('tx-category').value = ''; document.getElementById('tx-note').value = '';
-      btn.innerText = 'Ghi Nhận Giao Dịch'; btn.disabled = false; switchTab('dash');
+      alert('Đã lưu giao dịch!');
+      $('tx-amount').value = $('tx-category').value = $('tx-note').value = '';
+      setBtnState('btn-tx', 'Ghi Nhận Giao Dịch', false);
+
+      $('tx-type').value = 'Expense';
+      $('tx-type').dispatchEvent(new Event('change'));
+
+      switchTab('dash');
     }).submitTransaction(payload);
   }
 
   function submitDebt() {
-    const amt = parseFloat(document.getElementById('debt-amount').value), action = document.getElementById('debt-action').value;
-    const person = (action === 'Lend' || action === 'Borrow') ? document.getElementById('debt-person-input').value.trim() : document.getElementById('debt-person-select').value;
-    if(!amt || !person) return alert('Vui lòng điền đủ thông tin');
-    const btn = document.getElementById('btn-debt'); btn.innerText = 'Đang ghi...'; btn.disabled = true;
+    const amount = parseFloat($('debt-amount').value);
+    const action = $('debt-action').value;
+    const isOutgoing = action === 'Lend' || action === 'Borrow';
+    const person = isOutgoing ? $('debt-person-input').value.trim() : $('debt-person-select').value;
+
+    // Validation
+    if (!amount || amount <= 0) return alert('Số tiền phải lớn hơn 0!');
+    if (!person) return alert('Vui lòng chọn hoặc nhập tên đối tượng!');
+
+    setBtnState('btn-debt', 'Đang ghi...', true);
+
+    const payload = { action, amount, person, note: $('debt-note').value.trim() };
 
     google.script.run.withSuccessHandler(() => {
-      alert('Đã lưu!'); document.getElementById('debt-amount').value = ''; document.getElementById('debt-person-input').value = ''; document.getElementById('debt-person-select').value = ''; document.getElementById('debt-note').value = '';
-      btn.innerText = 'Cập Nhật Công Nợ'; btn.disabled = false; switchTab('dash');
-    }).submitDebt({ action, amount: amt, person, note: document.getElementById('debt-note').value.trim() });
+      alert('Đã cập nhật công nợ!');
+      $('debt-amount').value = $('debt-person-input').value = $('debt-person-select').value = $('debt-note').value = '';
+      setBtnState('btn-debt', 'Cập Nhật Công Nợ', false);
+      switchTab('dash');
+    }).submitDebt(payload);
   }
-
-  window.onload = initApp;
 </script>
 </body>
 </html>
