@@ -58,7 +58,7 @@ Follow these steps to deploy your own instance of MyCashFlow.
 1. On your Google Sheet, click on **Extensions** > **Apps Script** in the top menu.
 2. Delete any default code in the script editor.
 3. Create a file named `Code.gs` and paste the contents of the `Code.gs` file from this repository.
-4. Click the `+` icon next to "Files", select **HTML**, name it `Index.html`, and paste the contents of the `Index.html` file from this repository.
+4. Click the `+` icon next to "Files", select **HTML**, name it `index.html`, and paste the contents of the `index.html` file from this repository.
 5. Click the **Save** icon (💾).
 
 ### Step 3: Deploy the Web App
