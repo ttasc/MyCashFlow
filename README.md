@@ -83,7 +83,7 @@ Làm theo các bước dưới đây để tự tạo một phiên bản MyCashF
 1. Đứng tại Google Sheet của bạn, trên menu thanh công cụ, nhấn vào **Tiện ích mở rộng (Extensions)** > **Apps Script**.
 2. Xóa sạch mọi đoạn code mặc định (nếu có) trong cửa sổ soạn thảo.
 3. Tạo một file tên là `Code.gs` và dán toàn bộ nội dung từ file `Code.gs` trong kho lưu trữ (repo) này vào.
-4. Nhấn vào biểu tượng `+` bên cạnh chữ "Tệp (Files)", chọn **HTML**, đặt tên là `Index.html`, và dán toàn bộ nội dung từ file `Index.html` của repo này vào.
+4. Nhấn vào biểu tượng `+` bên cạnh chữ "Tệp (Files)", chọn **HTML**, đặt tên là `index.html`, và dán toàn bộ nội dung từ file `index.html` của repo này vào.
 5. Nhấn biểu tượng **Lưu** (💾) ở thanh công cụ phía trên.
 
 ### Bước 3: Phát hành Web App
