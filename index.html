@@ -154,7 +154,7 @@
       <div class="form-group" id="cat-group">
         <label>Hạng mục</label>
         <input type="text" id="tx-category" placeholder="Ví dụ: Ăn uống, Lương..." list="cat-list">
-        <datalist id="cat-list"><option value="Lương"></option><option value="Ăn uống"></option><option value="Di chuyển"></option><option value="Sinh hoạt"></option></datalist>
+        <datalist id="cat-list"></datalist>
       </div>
 
       <div class="form-group" style="margin:0;"><label>Ghi chú</label><input type="text" id="tx-note" placeholder="Chi tiết..."></div>
@@ -211,7 +211,8 @@
           debts: [
             ["", "Lend", 10000000, "Nguyễn Văn Linh"],
             ["", "Borrow", 1000000000, "Ông chú Viettel đòi nợ"]
-          ]
+          ],
+          categories: ["Lương", "Ăn uống", "Di chuyển", "Sinh hoạt", "Tiền nhà"]
         }), 300);
       },
       getTransactions: function() {
@@ -333,6 +334,10 @@
     $('seg-val-i-owe').innerText = fmt(totalIOwe);
 
     $('debt-action').dispatchEvent(new Event('change'));
+
+    if (res.categories && res.categories.length > 0) {
+      $('cat-list').innerHTML = res.categories.map(c => `<option value="${c}"></option>`).join('');
+    }
 
     if (res.sheetUrl) {
       $('sheet-link').href = res.sheetUrl;

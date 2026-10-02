@@ -26,6 +26,14 @@ function getDashboardData() {
     row[4]
   ]);
 
+  let categories = [];
+  const configSheet = ss.getSheetByName('Config');
+  if (configSheet) {
+    const configData = configSheet.getRange('A:A').getValues().flat();
+    configData.shift();
+    categories = configData.filter(String);
+  }
+
   return {
     sheetUrl: ss.getUrl(),
     metrics: {
@@ -36,7 +44,8 @@ function getDashboardData() {
       totalBalance: dashValues[4] || 0,
       totalSavings: dashValues[5] || 0
     },
-    debts: safeDebtData
+    debts: safeDebtData,
+    categories: categories
   };
 }
 

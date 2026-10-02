@@ -20,6 +20,9 @@ Một công cụ theo dõi tài chính cá nhân tối giản, không phụ thu�
 Làm theo các bước dưới đây để tự tạo một phiên bản MyCashFlow cho riêng bạn.
 
 ### Bước 1: Chuẩn bị Cơ sở dữ liệu (Google Sheets)
+
+##### Tạo bản sao từ [template](https://docs.google.com/spreadsheets/d/13JR83SFOzgWX-0yK2RmADM0IrgY1yke8ZBvr9e-7UNI/edit?usp=sharing) hoặc thực hiện các bước sau để tự tạo google sheet thủ công:
+
 1. Tạo một bảng tính [Google Sheet](https://sheets.new/) mới.
 2. Tạo chính xác **3 trang tính (sheets)** (các tab ở dưới cùng) và đặt tên lần lượt là: `Transactions`, `Debts`, và `Dashboard`.
 3. Điền các tiêu đề (headers) và công thức (formulas) chính xác như bảng dưới đây:
@@ -61,6 +64,18 @@ Làm theo các bước dưới đây để tự tạo một phiên bản MyCashF
 | **B6** | `=SUMIFS(Transactions!C:C; Transactions!B:B; "Save") - SUMIFS(Transactions!C:C; Transactions!B:B; "Withdraw")` |
 
 > ⚠️ **Lưu ý về Định dạng vùng (Locale):** Các công thức trên sử dụng dấu chấm phẩy (`;`), đây là chuẩn chung cho tài khoản ở khu vực Việt Nam/Châu Âu. Nếu tài khoản Google của bạn đang dùng ngôn ngữ/khu vực là chuẩn Mỹ (US), bạn có thể sẽ cần đổi dấu chấm phẩy (`;`) thành dấu phẩy (`,`) để công thức hoạt động đúng.
+
+#### Trang tính 4: `Config`
+| Ô (Cell) | Nội dung / Công thức |
+| :--- | :--- |
+| **A1** | `Category` |
+| **A2** | `Lương` |
+| **A3** | `Thu nhập khác` |
+| **A4** | `Tiết kiệm` |
+| **A5** | `Rút tiết kiệm` |
+| **A6** | `Sinh hoạt` |
+| **A7** | `Di chuyển` |
+| **A8** | `Du lịch ` |
 
 ---
 
