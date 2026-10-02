@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>MyCashFlow</title>
   <style>
-    /* =========================================
-       VARIABLES & BASE
-       ========================================= */
     :root {
       --bg: #F0F4F8; --surface: #FFFFFF; --text-main: #102A43; --text-muted: #627D98;
       --primary: #0077B6; --primary-fade: #E0F2FE; --green: #059669; --red: #E11D48;
@@ -21,9 +18,6 @@
     header { padding: 25px 20px 15px; text-align: center; }
     h1 { font-size: 1.4rem; color: var(--primary); letter-spacing: -0.5px; }
 
-    /* =========================================
-       LAYOUT & NAVIGATION
-       ========================================= */
     .view { display: none; padding: 0 20px 20px; animation: slideUp 0.3s ease; }
     .view.active { display: block; }
     @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -36,9 +30,6 @@
     nav button { flex: 1; padding: 12px 0; border: none; background: transparent; color: var(--text-muted); font-size: 1rem; font-weight: 600; border-radius: 12px; cursor: pointer; transition: 0.2s; }
     nav button.active { background: var(--primary-fade); color: var(--primary); }
 
-    /* =========================================
-       CARDS & UI COMPONENTS
-       ========================================= */
     .card { background: var(--surface); padding: 20px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 16px; }
     .card h3 { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 12px; font-weight: 600; }
 
@@ -52,7 +43,6 @@
     .val-red { color: var(--red); }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-    /* Tabs */
     .segment-control { display: flex; background: var(--bg); border-radius: 12px; padding: 4px; margin-bottom: 16px; }
     .segment-btn { flex: 1; border: none; background: transparent; padding: 10px 4px; border-radius: 10px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); cursor: pointer; display: flex; flex-direction: column; align-items: center; }
     .segment-btn span { font-size: 0.75rem; font-weight: 700; }
@@ -62,7 +52,6 @@
     .debt-tab-content.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    /* Lists */
     .debt-item { display: flex; justify-content: space-between; padding: 12px; background: var(--bg); border-radius: 10px; margin-bottom: 10px; }
     .debt-name { flex: 1; font-size: 0.95rem; font-weight: 500; word-break: break-word; }
     .debt-amount { font-weight: 700; }
@@ -80,17 +69,11 @@
     .tx-note { color: var(--text-muted); padding-left: 14px; position: relative; word-break: break-word; line-height: 1.4; }
     .tx-note::before { content: '↳'; position: absolute; left: 0; top: -1px; color: #9FB3C8; }
 
-    /* Forms */
     .form-group { margin-bottom: 16px; }
     label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
     input[type="text"], select { width: 100%; padding: 14px 16px; background: var(--bg); border: 1px solid transparent; color: var(--text-main); border-radius: 12px; font-size: 1rem; outline: none; appearance: none; transition: 0.2s; }
     input:focus, select:focus { background: var(--surface); border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-fade); }
     select { background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23627D98' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; }
-
-    .checkbox-group { display: flex; align-items: center; gap: 8px; margin: 16px 0; padding: 12px 16px; background: var(--primary-fade); border-radius: 12px; cursor: pointer; }
-    .checkbox-group input { width: 20px; height: 20px; accent-color: var(--primary); }
-    .checkbox-group label { margin: 0; color: var(--primary); cursor: pointer; font-weight: 600; }
-    #savings-section { padding: 16px; border: 1px dashed var(--primary); border-radius: 12px; margin-bottom: 16px; background: var(--surface); }
 
     .btn-submit { width: 100%; padding: 16px; background: var(--primary); color: white; border: none; border-radius: 12px; font-size: 1.05rem; font-weight: 700; cursor: pointer; margin-top: 8px; transition: 0.2s; }
     .btn-submit:active { transform: scale(0.98); background: #005F92; }
@@ -102,12 +85,10 @@
 <div class="app">
   <header><h1>MyCashFlow</h1></header>
 
-  <!-- DASHBOARD -->
   <main id="view-dash" class="view active">
     <div id="dash-loading" style="text-align:center; color:var(--primary); font-weight:600; padding:40px;">Đang tải dữ liệu...</div>
     <div id="dash-content" style="display: none;">
 
-      <!-- Metrics -->
       <div class="card hero">
         <h3>Tổng tài sản</h3>
         <div class="value" id="val-total-bal">0</div>
@@ -132,7 +113,6 @@
         </div>
       </div>
 
-      <!-- Debts -->
       <div class="card" style="padding: 16px;">
         <div class="segment-control">
           <button class="segment-btn active" onclick="switchDebtTab('owe-me')" id="seg-btn-owe-me">Người ta nợ <span id="seg-val-owe-me" class="val-green">0</span></button>
@@ -142,7 +122,6 @@
         <div id="tab-i-owe" class="debt-tab-content"><div id="list-i-owe"></div></div>
       </div>
 
-      <!-- History -->
       <div class="card">
         <h3>Lịch sử giao dịch</h3>
         <div class="flex-row" style="margin: 0;">
@@ -152,7 +131,6 @@
         <div id="hist-list" style="display: none;"></div>
       </div>
 
-      <!-- Footer & Link -->
       <div id="sync-status" class="sync-indicator">Đã đồng bộ</div>
       <div style="text-align: center; margin-top: 8px;">
         <a id="sheet-link" href="#" target="_blank" style="display:none; font-size:0.85rem; color:var(--primary); text-decoration:none; font-weight:600;">Mở Google Sheet ↗</a>
@@ -160,7 +138,6 @@
     </div>
   </main>
 
-  <!-- TRANSACTIONS -->
   <main id="view-tx" class="view">
     <div class="card">
       <div class="form-group">
@@ -168,6 +145,7 @@
         <select id="tx-type">
           <option value="Expense">Chi tiền</option>
           <option value="Income">Thu nhập</option>
+          <option value="Save">Gửi tiền tiết kiệm</option>
           <option value="Withdraw">Rút tiền tiết kiệm</option>
         </select>
       </div>
@@ -179,23 +157,11 @@
         <datalist id="cat-list"><option value="Lương"></option><option value="Ăn uống"></option><option value="Di chuyển"></option><option value="Sinh hoạt"></option></datalist>
       </div>
 
-      <label class="checkbox-group" id="chk-save-group" style="display:none;">
-        <input type="checkbox" id="tx-is-saving" checked><span>Trích tiết kiệm</span>
-      </label>
-
-      <div id="savings-section" style="display:none;">
-        <div class="grid-2">
-          <div class="form-group" style="margin:0;"><label>Hình thức</label><select id="tx-save-type"><option value="percent">Tỉ lệ (%)</option><option value="fixed">Cố định</option></select></div>
-          <div class="form-group" style="margin:0;"><label>Mức trích</label><input type="text" id="tx-save-val" value="10" inputmode="numeric"></div>
-        </div>
-      </div>
-
       <div class="form-group" style="margin:0;"><label>Ghi chú</label><input type="text" id="tx-note" placeholder="Chi tiết..."></div>
     </div>
     <button class="btn-submit" onclick="submitTx()" id="btn-tx">Ghi Nhận Giao Dịch</button>
   </main>
 
-  <!-- DEBTS -->
   <main id="view-debt" class="view">
     <div class="card">
       <div class="form-group">
@@ -220,7 +186,6 @@
     <button class="btn-submit" onclick="submitDebt()" id="btn-debt">Cập Nhật Công Nợ</button>
   </main>
 
-  <!-- BOTTOM NAV -->
   <nav>
     <button class="active" onclick="switchTab('dash')" id="tab-dash">Tổng quan</button>
     <button onclick="switchTab('tx')" id="tab-tx">Giao dịch mới</button>
@@ -229,9 +194,6 @@
 </div>
 
 <script>
-  // ==========================================
-  // UTILITIES & STATE
-  // ==========================================
   const $ = id => document.getElementById(id);
   const fmt = num => new Intl.NumberFormat('vi-VN').format(num || 0);
   const setBtnState = (id, text, disabled) => { $(id).innerText = text; $(id).disabled = disabled; };
@@ -239,9 +201,6 @@
   let activeDebtsState = {};
   let currentTotalSavings = 0;
 
-  // ==========================================
-  // MOCK DATA (Local Testing)
-  // ==========================================
   if (typeof google === 'undefined') {
     window.google = { script: { run: {
       withSuccessHandler: function(cb) { this.cb = cb; return this; },
@@ -257,9 +216,10 @@
       },
       getTransactions: function() {
         setTimeout(() => this.cb([
-          ["06/09/2026", "Withdraw", 2000000, "Rút tiết kiệm", -2000000, "Mua quà"],
-          ["05/09/2026", "Expense", 50000, "Ăn uống", 0, "Ăn sáng bún bò"],
-          ["01/09/2026", "Income", 9000000, "Lương", 1000000, ""]
+          ["07/09/2026", "Save", 1000000, "Gửi tiền tiết kiệm", "Lương về gửi luôn"],
+          ["06/09/2026", "Withdraw", 2000000, "Rút tiền tiết kiệm", "Mua quà"],
+          ["05/09/2026", "Expense", 50000, "Ăn uống", "Ăn sáng bún bò"],
+          ["01/09/2026", "Income", 9000000, "Lương", ""]
         ]), 300);
       },
       submitTransaction: function() { setTimeout(() => this.cb(), 300); },
@@ -267,9 +227,6 @@
     }}};
   }
 
-  // ==========================================
-  // INITIALIZATION & NAVIGATION
-  // ==========================================
   window.onload = () => {
     const d = new Date();
     $('hist-month').value = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
@@ -293,29 +250,17 @@
     $(`tab-${tab}`).classList.add('active');
   };
 
-  // ==========================================
-  // FORM BEHAVIORS (UI Logic)
-  // ==========================================
   const formatCurrencyInput = e => {
     let val = e.target.value.replace(/\D/g, '');
     e.target.value = val ? fmt(val) : '';
   };
 
   $('tx-amount').addEventListener('input', formatCurrencyInput);
-  $('tx-save-val').addEventListener('input', formatCurrencyInput);
   $('debt-amount').addEventListener('input', formatCurrencyInput);
 
   $('tx-type').addEventListener('change', e => {
     const type = e.target.value;
-    const isIncome = type === 'Income';
-
-    $('chk-save-group').style.display = isIncome ? 'flex' : 'none';
-    $('savings-section').style.display = (isIncome && $('tx-is-saving').checked) ? 'block' : 'none';
-    $('cat-group').style.display = type === 'Withdraw' ? 'none' : 'block';
-  });
-
-  $('tx-is-saving').addEventListener('change', e => {
-    $('savings-section').style.display = e.target.checked ? 'block' : 'none';
+    $('cat-group').style.display = (type === 'Withdraw' || type === 'Save') ? 'none' : 'block';
   });
 
   $('debt-action').addEventListener('change', e => {
@@ -339,11 +284,6 @@
     }
   });
 
-  // ==========================================
-  // CORE LOGIC & API
-  // ==========================================
-
-  // Data Processor
   function processDebts(debtsArray) {
     const db = {};
     debtsArray.forEach(row => {
@@ -359,12 +299,10 @@
     return db;
   }
 
-  // Dashboard Renderer
   function renderDashUI(res) {
     const m = res.metrics;
     currentTotalSavings = m.totalSavings || 0;
 
-    // Render Metrics
     $('val-month').innerText = m.currentMonth;
     $('val-m-income').innerText = fmt(m.monthlyIncome);
     $('val-m-expense').innerText = fmt(m.monthlyExpense);
@@ -374,7 +312,6 @@
     $('val-m-balance').innerText = fmt(m.monthlyBalance);
     $('val-m-balance').className = 'value ' + (m.monthlyBalance < 0 ? 'val-red' : 'val-green');
 
-    // Render Debts
     activeDebtsState = processDebts(res.debts);
     let htmlOweMe = '', htmlIOwe = '', totalOweMe = 0, totalIOwe = 0;
 
@@ -397,7 +334,6 @@
 
     $('debt-action').dispatchEvent(new Event('change'));
 
-    // Render Link
     if (res.sheetUrl) {
       $('sheet-link').href = res.sheetUrl;
       $('sheet-link').style.display = 'inline-block';
@@ -407,7 +343,6 @@
   function loadDashboard() {
     const cache = localStorage.getItem('mcf_cache');
 
-    // Optimistic UI loading
     if (cache) {
       renderDashUI(JSON.parse(cache));
       $('dash-loading').style.display = 'none';
@@ -433,7 +368,6 @@
 
     if (!month) return;
 
-    // Toggle Logic
     if (list.style.display === 'block') {
       list.style.display = 'none';
       setBtnState('btn-hist', 'Xem', false);
@@ -452,12 +386,11 @@
       }
 
       list.innerHTML = data.map(row => {
-        const [date, type, amount, category, savings, note] = row;
-        const isIncome = type === 'Income' || type === 'Withdraw';
+        const [date, type, amount, category, note] = row;
+        const isPlus = type === 'Income' || type === 'Withdraw';
 
-        const amountSign = isIncome ? '+' : '-';
-        const colorClass = isIncome ? 'val-green' : 'val-red';
-        const saveText = savings > 0 ? `• Tiết kiệm: ${fmt(savings)}` : '';
+        const amountSign = isPlus ? '+' : '-';
+        const colorClass = isPlus ? 'val-green' : 'val-red';
         const noteText = note ? `<span class="tx-note">${note}</span>` : '';
 
         return `
@@ -467,7 +400,7 @@
               <span class="${colorClass}">${amountSign}${fmt(amount)}</span>
             </div>
             <div class="tx-bot">
-              <span class="tx-date-sav">${date} ${saveText}</span>
+              <span class="tx-date-sav">${date}</span>
               ${noteText}
             </div>
           </div>`;
@@ -478,34 +411,22 @@
   function submitTx() {
     const amount = parseFloat($('tx-amount').value.replace(/\./g, ''));
     const type = $('tx-type').value;
-    let savings = 0;
     let category = $('tx-category').value.trim();
 
-    // Validation
     if (!amount || amount <= 0) return alert('Số tiền phải lớn hơn 0!');
 
     if (type === 'Withdraw') {
       if (amount > currentTotalSavings) return alert('Số tiền rút không được vượt quá tổng tiết kiệm!');
-      savings = -amount;
       category = 'Rút tiền tiết kiệm';
+    } else if (type === 'Save') {
+      category = 'Gửi tiền tiết kiệm';
     } else {
       if (!category) return alert('Vui lòng nhập hạng mục giao dịch!');
-
-      if (type === 'Income' && $('tx-is-saving').checked) {
-        const saveVal = parseFloat($('tx-save-val').value.replace(/\./g, '')) || 0;
-        const isPercent = $('tx-save-type').value === 'percent';
-
-        if (saveVal <= 0) return alert('Mức trích tiết kiệm phải lớn hơn 0!');
-        if (isPercent && saveVal > 100) return alert('Tỉ lệ trích không được vượt quá 100%!');
-        if (!isPercent && saveVal > amount) return alert('Số tiền trích không được lớn hơn tổng thu nhập!');
-
-        savings = isPercent ? (amount * saveVal / 100) : saveVal;
-      }
     }
 
     setBtnState('btn-tx', 'Đang ghi...', true);
 
-    const payload = { type, amount, category, savings, note: $('tx-note').value.trim() };
+    const payload = { type, amount, category, note: $('tx-note').value.trim() };
 
     google.script.run.withSuccessHandler(() => {
       alert('Đã lưu giao dịch!');
@@ -525,7 +446,6 @@
     const isOutgoing = action === 'Lend' || action === 'Borrow';
     const person = isOutgoing ? $('debt-person-input').value.trim() : $('debt-person-select').value;
 
-    // Validation
     if (!amount || amount <= 0) return alert('Số tiền phải lớn hơn 0!');
     if (!person) return alert('Vui lòng chọn hoặc nhập tên đối tượng!');
 

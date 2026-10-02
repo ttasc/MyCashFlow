@@ -31,9 +31,8 @@ Làm theo các bước dưới đây để tự tạo một phiên bản MyCashF
 | **B1** | `Type` |
 | **C1** | `Amount` |
 | **D1** | `Category` |
-| **E1** | `Savings` |
-| **F1** | `Note` |
-| **G1** | `=ARRAYFORMULA(IF(ROW(A:A)=1; "Month"; IF(A:A=""; ""; TEXT(A:A; "yyyy-mm"))))` |
+| **E1** | `Note` |
+| **F1** | `=ARRAYFORMULA(IF(ROW(A:A)=1; "Month"; IF(A:A=""; ""; TEXT(A:A; "yyyy-mm"))))` |
 
 #### Trang tính 2: `Debts`
 | Ô (Cell) | Nội dung / Công thức |
@@ -51,15 +50,15 @@ Làm theo các bước dưới đây để tự tạo một phiên bản MyCashF
 | **A1** | `Current Month` |
 | **B1** | `=TEXT(TODAY(); "MM/yyyy")` |
 | **A2** | `Monthly Income` |
-| **B2** | `=SUMIFS(Transactions!C:C; Transactions!B:B; "Income"; Transactions!G:G; B1)` |
+| **B2** | `=SUMIFS(Transactions!C:C; Transactions!B:B; "Income"; Transactions!F:F; B1)` |
 | **A3** | `Monthly Expense` |
-| **B3** | `=SUMIFS(Transactions!C:C; Transactions!B:B; "Expense"; Transactions!G:G; B1)` |
+| **B3** | `=SUMIFS(Transactions!C:C; Transactions!B:B; "Expense"; Transactions!F:F; B1)` |
 | **A4** | `Monthly Balance` |
-| **B4** | `=B2 - B3 - SUMIFS(Transactions!E:E; Transactions!G:G; B1) - SUMIFS(Debts!C:C; Debts!B:B; "Lend"; Debts!F:F; B1) + SUMIFS(Debts!C:C; Debts!B:B; "Collect"; Debts!F:F; B1) + SUMIFS(Debts!C:C; Debts!B:B; "Borrow"; Debts!F:F; B1) - SUMIFS(Debts!C:C; Debts!B:B; "Repay"; Debts!F:F; B1)` |
+| **B4** | `=B2 - B3 - SUMIFS(Transactions!C:C; Transactions!B:B; "Save"; Transactions!F:F; B1) + SUMIFS(Transactions!C:C; Transactions!B:B; "Withdraw"; Transactions!F:F; B1) - SUMIFS(Debts!C:C; Debts!B:B; "Lend"; Debts!F:F; B1) + SUMIFS(Debts!C:C; Debts!B:B; "Collect"; Debts!F:F; B1) + SUMIFS(Debts!C:C; Debts!B:B; "Borrow"; Debts!F:F; B1) - SUMIFS(Debts!C:C; Debts!B:B; "Repay"; Debts!F:F; B1)` |
 | **A5** | `Total Balance` |
-| **B5** | `=SUMIFS(Transactions!C:C; Transactions!B:B; "Income") - SUMIFS(Transactions!C:C; Transactions!B:B; "Expense") - B6 - SUMIFS(Debts!C:C; Debts!B:B; "Lend") + SUMIFS(Debts!C:C; Debts!B:B; "Collect") + SUMIFS(Debts!C:C; Debts!B:B; "Borrow") - SUMIFS(Debts!C:C; Debts!B:B; "Repay")` |
+| **B5** | `=SUMIFS(Transactions!C:C; Transactions!B:B; "Income") - SUMIFS(Transactions!C:C; Transactions!B:B; "Expense") - SUMIFS(Transactions!C:C; Transactions!B:B; "Save") + SUMIFS(Transactions!C:C; Transactions!B:B; "Withdraw") - SUMIFS(Debts!C:C; Debts!B:B; "Lend") + SUMIFS(Debts!C:C; Debts!B:B; "Collect") + SUMIFS(Debts!C:C; Debts!B:B; "Borrow") - SUMIFS(Debts!C:C; Debts!B:B; "Repay")` |
 | **A6** | `Total Savings` |
-| **B6** | `=SUM(Transactions!E:E)` |
+| **B6** | `=SUMIFS(Transactions!C:C; Transactions!B:B; "Save") - SUMIFS(Transactions!C:C; Transactions!B:B; "Withdraw")` |
 
 > ⚠️ **Lưu ý về Định dạng vùng (Locale):** Các công thức trên sử dụng dấu chấm phẩy (`;`), đây là chuẩn chung cho tài khoản ở khu vực Việt Nam/Châu Âu. Nếu tài khoản Google của bạn đang dùng ngôn ngữ/khu vực là chuẩn Mỹ (US), bạn có thể sẽ cần đổi dấu chấm phẩy (`;`) thành dấu phẩy (`,`) để công thức hoạt động đúng.
 

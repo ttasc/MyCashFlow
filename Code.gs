@@ -47,14 +47,13 @@ function getTransactions(monthStr) {
   data.shift();
 
   return data
-    .filter(row => row[6] === monthStr)
+    .filter(row => row[5] === monthStr)
     .map(row => [
       row[0] ? Utilities.formatDate(new Date(row[0]), Session.getScriptTimeZone(), "dd/MM/yyyy") : '',
       row[1],
       row[2],
       row[3],
-      row[4],
-      row[5]
+      row[4]
     ])
     .reverse();
 }
@@ -62,7 +61,7 @@ function getTransactions(monthStr) {
 function submitTransaction(data) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = ss.getSheetByName('Transactions');
-  sheet.appendRow([new Date(), data.type, data.amount, data.category, data.savings || 0, data.note]);
+  sheet.appendRow([new Date(), data.type, data.amount, data.category, data.note]);
   return true;
 }
 
